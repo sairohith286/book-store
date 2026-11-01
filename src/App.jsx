@@ -1,7 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom';
-import { ArrowRight, X } from 'lucide-react';
+import { HashRouter, Routes, Route, useLocation, Link } from 'react-router-dom';import { ArrowRight, X } from 'lucide-react';
 import { CartProvider, useCart } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
@@ -34,5 +33,13 @@ function MainLayout() {
     return (_jsxs("div", { className: "min-h-screen flex flex-col bg-[#FAF8F5] text-[#1E232A]", children: [_jsx(ScrollToTop, {}), _jsx(Navbar, {}), _jsx("main", { className: "flex-1", children: _jsxs(Routes, { children: [_jsx(Route, { path: "/", element: _jsx(HomePage, {}) }), _jsx(Route, { path: "/books", element: _jsx(BooksPage, {}) }), _jsx(Route, { path: "/about", element: _jsx(AboutPage, {}) }), _jsx(Route, { path: "/contact", element: _jsx(ContactPage, {}) }), _jsx(Route, { path: "/cart", element: _jsx(CartPage, {}) }), _jsx(Route, { path: "/login", element: _jsx(LoginPage, {}) }), _jsx(Route, { path: "/signup", element: _jsx(SignUpPage, {}) }), _jsx(Route, { path: "/checkout", element: _jsx(ProtectedRoute, { children: _jsx(CheckoutPage, {}) }) }), _jsx(Route, { path: "*", element: _jsx(HomePage, {}) })] }) }), _jsx(Footer, {}), _jsx(CartToast, {})] }));
 }
 export default function App() {
-    return (_jsx(BrowserRouter, { children: _jsx(AuthProvider, { children: _jsx(CartProvider, { children: _jsx(MainLayout, {}) }) }) }));
+    return (
+        <HashRouter>
+            <AuthProvider>
+                <CartProvider>
+                    <MainLayout />
+                </CartProvider>
+            </AuthProvider>
+        </HashRouter>
+    );
 }
