@@ -1,23 +1,28 @@
-import tailwindcss from '@tailwindcss/vite';
+
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { defineConfig } from 'vite';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export default defineConfig(() => ({
-  base:'/book-store/'
-  plugins: [react(), tailwindcss()],
+export default defineConfig({
+  base: '/book-store/',
+
+  plugins: [
+    react(),
+    tailwindcss()
+  ],
+
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '.'),
-    },
+      '@': path.resolve(__dirname, '.')
+    }
   },
+
   server: {
-    // HMR can be disabled in AI Studio via DISABLE_HMR.
     hmr: process.env.DISABLE_HMR !== 'true',
-    // Disable file watching when DISABLE_HMR is true to reduce CPU usage.
-    watch: process.env.DISABLE_HMR === 'true' ? null : {},
-  },
-}));
+    watch: process.env.DISABLE_HMR === 'true' ? null : {}
+  }
+});
